@@ -2,6 +2,7 @@ require('dotenv').config()
 const { Sequelize, QueryTypes, Model, DataTypes } = require('sequelize')
 const express = require('express')
 const app = express()
+app.use(express.json())
 
 const sequelize = new Sequelize(encodeURI(process.env.PGHOST))
 
@@ -35,9 +36,24 @@ Blog.init({
   modelName: 'blog'
 })
 
+Blog.sync()
+
 app.get('/api/blogs', async (req, res) => {
-  const blogs = await Blog.findAll()
+  let blogs = await Blog.findAll()
+  console.log(blogs)
   res.json(blogs)
+})
+
+app.post('/api/blogs', async (req, res) => {
+  console.log('req.body', req.body)
+  try {
+    const blog = await Blog.create(req.body)
+    console.log(blog)
+    return res.json(blog)
+  } catch(error) {
+    console.log(error)
+    return res.status(400).json({ error })
+  }
 })
 
 const PORT = process.env.PORT || 3001
