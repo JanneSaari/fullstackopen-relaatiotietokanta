@@ -1,8 +1,6 @@
 GET http://localhost:3001/api/blogs HTTP/1.1
 content-type: application/json
 
-{}
-
 ###
 
 POST http://localhost:3001/api/blogs HTTP/1.1
@@ -13,3 +11,8 @@ content-type: application/json
 "title": "Test Title",
 "url": "testurl.com"
 }
+
+###
+
+DELETE http://localhost:3001/api/blogs/2 HTTP/1.1
+content-type: application/json
