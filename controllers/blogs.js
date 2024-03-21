@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
   res.json(blogs)
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', async (req, res) => {
   const blog = await Blog.create(req.body)
   return res.json(blog)
 })
@@ -29,7 +29,7 @@ router.delete('/:id', async (req, res) => {
   res.status(204).send()
 })
 
-router.put('/:id', blogFinder, async (req, res, next) => {
+router.put('/:id', blogFinder, async (req, res) => {
   if(!req.body.likes){
     throw new Error("likes not defined in request body")
   }
