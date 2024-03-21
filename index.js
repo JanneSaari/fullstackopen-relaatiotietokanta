@@ -1,14 +1,17 @@
 require('dotenv').config()
 const { Sequelize, QueryTypes, Model, DataTypes } = require('sequelize')
 const express = require('express')
+require('express-async-errors');
 const app = express()
 app.use(express.json())
 
 const { PORT } = require('./util/config')
 const { connectToDatabase } = require('./util/db')
 const blogsRouter = require('./controllers/blogs')
+const errorHandler = require('./middleware/errorHandler')
 
 app.use('/api/blogs', blogsRouter)
+app.use(errorHandler)
 
 const start = async () => {
   await connectToDatabase()

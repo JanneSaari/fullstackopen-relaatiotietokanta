@@ -7,21 +7,17 @@ POST http://localhost:3001/api/blogs HTTP/1.1
 content-type: application/json
 
 {
-"author": "Test Author",
-"title": "Test Title",
-"url": "testurl.com"
+  "author": "Test Author",
+  "title": "test",
+  "url": "test.com/url"
 }
 
 ###
 
-DELETE http://localhost:3001/api/blogs/2 HTTP/1.1
+DELETE http://localhost:3001/api/blogs/8 HTTP/1.1
 content-type: application/json
 
 ###
 
-PUT http://localhost:3001/api/blogs/3 HTTP/1.1
+PUT http://localhost:3001/api/blogs/5 HTTP/1.1
 content-type: application/json
-
-{
-  "likes": 4
-}

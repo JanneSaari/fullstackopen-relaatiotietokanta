@@ -4,6 +4,9 @@ const { Blog } = require('../models')
 
 const blogFinder = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id)
+  if(!req.blog){
+    res.status(404).send(`Could not find blog with id: ${req.params.id}`)
+  }
   next()
 }
 
@@ -12,37 +15,27 @@ router.get('/', async (req, res) => {
   res.json(blogs)
 })
 
-router.post('/', async (req, res) => {
-  try {
-    const blog = await Blog.create(req.body)
-    return res.json(blog)
-  } catch(error) {
-    return res.status(400).json({ error })
-  }
+router.post('/', async (req, res, next) => {
+  const blog = await Blog.create(req.body)
+  return res.json(blog)
 })
 
 router.delete('/:id', async (req, res) => {
-  try {
-    await Blog.destroy({
-      where: {
-        id: req.params.id
-      }
-    })
-    res.status(204).send()
-  } catch (error) {
-    console.log(error)
-  }
+  await Blog.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  res.status(204).send()
 })
 
-router.put('/:id', blogFinder, async (req, res) => {
-  if(req.blog){
-    req.blog.likes = req.body.likes
-    await req.blog.save()
-    res.json(req.blog)
+router.put('/:id', blogFinder, async (req, res, next) => {
+  if(!req.body.likes){
+    throw new Error("likes not defined in request body")
   }
-  else {
-    res.status(404).send()
-  }
+  req.blog.likes = req.body.likes
+  await req.blog.save()
+  res.json(req.blog)
 })
 
 module.exports = router
