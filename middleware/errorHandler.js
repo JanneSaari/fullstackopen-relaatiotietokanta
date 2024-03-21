@@ -1,9 +1,13 @@
 const errorHandler = (error, request, response, next) => {
-  console.error(error.message)
+  console.error(error)
+  // console.error(error.message)
 
   switch (error.name) {
     case 'SequelizeValidationError':
       return response.status(400).send({error: error.message})
+    case 'SequelizeUniqueConstraintError':
+      return response.status(400).send({
+        error: `unique fields already in use: ${JSON.stringify(error.fields)}`})
     default:
       next(error)
       break;
