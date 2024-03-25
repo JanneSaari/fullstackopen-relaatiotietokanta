@@ -30,10 +30,12 @@ router.post('/', tokenExtractor, async (req, res) => {
   return res.json(blog)
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', tokenExtractor, async (req, res) => {
+  const user = await User.findByPk(req.decodedToken.id)
   await Blog.destroy({
     where: {
-      id: req.params.id
+      id: req.params.id,
+      userId: user.id
     }
   })
   res.status(204).send()
