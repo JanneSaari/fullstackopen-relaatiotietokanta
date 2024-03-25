@@ -22,6 +22,14 @@ module.exports = {
       likes:{
         type: DataTypes.INTEGER,
         defaultValue: 0
+      },
+      created_at:{
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+      },
+      updated_at:{
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
       }
     })
     await queryInterface.createTable('users', {
@@ -42,6 +50,14 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
+      created_at:{
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+      },
+      updated_at:{
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+      }
     })
     await queryInterface.addColumn('blogs', 'user_id', {
       type: DataTypes.INTEGER,
