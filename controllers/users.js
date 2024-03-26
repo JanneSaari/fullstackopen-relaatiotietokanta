@@ -37,8 +37,34 @@ router.post('/', async (req, res) => {
   res.json(user)
 })
 
-router.get('/:id', userFinder ,async (req, res) => {
-  res.json(req.user)
+router.get('/:id', async (req, res) => {
+  const where = {}
+  switch (req.query.read) {
+    case 'read':
+      where.readingState = 'read'
+      break
+    case 'unread':
+      where.readingState = 'unread'
+      break
+    default:
+      break
+  }
+
+  const user = await User.findByPk(req.params.id, {
+    include: [{
+      model: Blog,
+      through: ReadingList,
+      through:{
+        attributes:['readingState', 'id'],
+        where
+      },
+      as:'readings'
+    }]
+  })
+  if(!user){
+    res.status(404).send(`Could not find user with id: ${req.params.id}`)
+  }
+  res.json(user)
 })
 
 router.put('/:username', async(req, res) => {
