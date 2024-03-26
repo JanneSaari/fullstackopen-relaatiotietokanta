@@ -12,8 +12,8 @@ POST http://localhost:3001/api/users/ HTTP/1.1
 content-type: application/json
 
 {
-  "name": "testname",
-  "username": "test@username.com"
+  "name": "somename",
+  "username": "user@name.com"
 }
 
 ###
@@ -31,6 +31,6 @@ POST http://localhost:3001/api/login/ HTTP/1.1
 content-type: application/json
 
 {
-  "username": "test@username.com",
+  "username": "user@name.com",
   "password": "salainen"
 }
