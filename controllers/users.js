@@ -8,7 +8,7 @@ const userFinder = async (req, res, next) => {
       model: Blog,
       through: ReadingList,
       through:{
-        attributes:[]
+        attributes:['readingState', 'id']
       },
       as:'readings',
     }]
