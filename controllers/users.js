@@ -1,9 +1,18 @@
 const router = require('express').Router()
 
-const { User, Blog } = require('../models')
+const { User, Blog, ReadingList } = require('../models')
 
 const userFinder = async (req, res, next) => {
-  req.user = await User.findByPk(req.params.id)
+  req.user = await User.findByPk(req.params.id, {
+    include: [{
+      model: Blog,
+      through: ReadingList,
+      through:{
+        attributes:[]
+      },
+      as:'readings',
+    }]
+  })
   if(!req.user){
     res.status(404).send(`Could not find user with id: ${req.params.id}`)
   }
@@ -14,10 +23,11 @@ const userFinder = async (req, res, next) => {
 
 router.get('/', async (req, res) => {
   const users = await User.findAll({
-    include: {
+    include: [{
       model: Blog,
       attributes: { exclude: ['userId'] }
     }
+    ]
   })
   res.json(users)
 })

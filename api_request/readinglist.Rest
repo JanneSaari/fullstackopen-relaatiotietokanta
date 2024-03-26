@@ -3,6 +3,6 @@ content-type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAdXNlcm5hbWUuY29tIiwiaWQiOjEsImlhdCI6MTcxMTAyNDI5Nn0.JxSHWW4jgu8pWGPKGDUlhYIiPzmaOYaku_wXiWSAT30
 
 {
-  "blogId": 1,
+  "blogId": 2,
   "userId": 1
 }
