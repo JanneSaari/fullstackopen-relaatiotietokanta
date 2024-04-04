@@ -19,7 +19,7 @@ Session.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  expires: {
+  expiresAt: {
     type: DataTypes.DATE
   }
 }, {
