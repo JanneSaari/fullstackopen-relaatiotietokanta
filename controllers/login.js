@@ -4,6 +4,7 @@ const router = require('express').Router()
 const { SECRET } = require('../util/config')
 const User = require('../models/user')
 const Session = require('../models/session')
+const { SESSION_LIFETIME} = require('../util/config')
 
 router.post('/', async (request, response) => {
   const body = request.body
@@ -31,10 +32,13 @@ router.post('/', async (request, response) => {
 
   // Currently allows multiple sessions for same user,
   // so not checking if there is already existing one
+  console.log(request.body)
+  const currentDate = new Date()
+  let expiresAt = currentDate.getTime() + SESSION_LIFETIME
   const session = await Session.create({
-    ...request.body, 
     userId: user.id,
-    token: token 
+    token: token,
+    expiresAt: expiresAt
   })
 
   console.log('session: ', session)

@@ -14,7 +14,11 @@ const tokenExtractor = async (req, res, next) => {
       }})
       console.log('session: ', session)
       if(!session){
-        throw new Error('invalid session token')
+        return res.status(401).json('session invalid')
+      }
+      if(new Date() > session.expiresAt){
+        console.log('session has expired')
+        return res.status(401).json({error: 'token expired'})
       }
     } catch (error){
       console.log(error)
