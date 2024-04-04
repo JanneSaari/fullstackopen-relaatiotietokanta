@@ -28,21 +28,14 @@ router.post('/', async (request, response) => {
   }
 
   const token = jwt.sign(userForToken, SECRET)
-  
-  let session = await Session.findOne({
-    where: {
-      userId: user.id
-    }
+
+  // Currently allows multiple sessions for same user,
+  // so not checking if there is already existing one
+  const session = await Session.create({
+    ...request.body, 
+    userId: user.id,
+    token: token 
   })
-  if(!session){
-    const newSession = await Session.create({
-      ...request.body, 
-      userId: user.id,
-      token: token 
-    })
-    console.log('newSession', newSession)
-    session = newSession
-  }
 
   console.log('session: ', session)
 

@@ -1,14 +1,13 @@
-const jwt = require('jsonwebtoken')
 const router = require('express').Router()
 
-const { SECRET } = require('../util/config')
-const User = require('../models/user')
 const Session = require('../models/session')
 const tokenExtractor = require('../middleware/tokenExtractor')
 
 router.delete('/', tokenExtractor, async (request, response) => {
   const token = request.token
   console.log('token', token)
+  // Session could be just invalidated instead of deleted,
+  // that way we would have simple login history if wanted
   await Session.destroy({
     where: {
       token: token

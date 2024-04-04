@@ -39,4 +39,4 @@ content-type: application/json
 
 DELETE http://localhost:3001/api/logout/ HTTP/1.1
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJAbmFtZS5jb20iLCJpZCI6MiwiaWF0IjoxNzExNjI2MTM0fQ.5lzqGv-u-LOkUHSZmcdpfQlAyStYvxnxAQ6721NLS4Y
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJAbmFtZS5jb20iLCJpZCI6MiwiaWF0IjoxNzEyMjIzNzY5fQ.Eaicdjd7aPA-5Rx-ZjG0DCcddlOllQNJzYzBhETXJFY
